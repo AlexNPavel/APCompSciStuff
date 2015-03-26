@@ -1,0 +1,144 @@
+import java.util.Arrays;
+import java.util.Random;
+
+
+public class SortSearch {
+
+	static int[] myStuff;
+	boolean reset;
+	
+	public SortSearch() {
+		reset = true;
+	}
+	
+	public void bubbleSort(int[] sortArr, boolean ascending) {
+		if (ascending) {
+			while (reset == true) {
+				reset = false;
+				for (int i = 1; i < sortArr.length; i++) {
+					if (sortArr[i] < sortArr[i - 1]) {
+//						System.out.println("Current array is "
+//								+ Arrays.toString(sortArr));
+//						System.out.println("Switch pos " + i + " {value "
+//								+ sortArr[i] + "} with pos " + (i - 1)
+//								+ " {value " + sortArr[i - 1] + "}");
+						int upperVal = sortArr[i - 1];
+						int lowerVal = sortArr[i];
+						sortArr[i] = upperVal;
+						sortArr[i - 1] = lowerVal;
+						reset = true;
+//						System.out.println("Changed array is "
+//								+ Arrays.toString(sortArr) + "\n");
+					}
+				}
+			}
+		}
+		else {
+			while (reset == true) {
+				reset = false;
+				for (int i = 1; i < sortArr.length; i++) {
+					if (sortArr[i] > sortArr[i - 1]) {
+//						System.out.println("Current array is " + Arrays.toString(sortArr));
+//						System.out.println("Switch pos "+ i + " {value " + sortArr[i]+ "} with pos " + (i-1) + " {value " + sortArr[i - 1]+ "}");
+						int upperVal = sortArr[i - 1];
+						int lowerVal = sortArr[i];
+						sortArr[i] = upperVal;
+						sortArr[i - 1] = lowerVal;
+						reset = true;
+//						System.out.println("Changed array is " + Arrays.toString(sortArr) + "\n");
+					}
+				}
+			}
+		}
+	}
+	
+	public void selectionSort(int[] sortArr, boolean ascending) {
+		if (ascending) {
+			for (int i = 0; i < sortArr.length - 1; i++) {
+//				System.out.println("Current array is "
+//						+ Arrays.toString(sortArr));
+				//			System.out.println("In main for");
+				int minVal = sortArr[i];
+				int pos = i;
+				for (int g = i + 1; g < sortArr.length; g++) {
+					//				System.out.println("In second for");
+					if (minVal >= sortArr[g]) {
+						minVal = sortArr[g];
+						pos = g;
+					}
+				}
+//				System.out.println("Moved value " + sortArr[pos]
+//						+ " from position " + pos + " to pos " + i);
+				sortArr[pos] = sortArr[i];
+				sortArr[i] = minVal;
+//				System.out.println("Changed array is "
+//						+ Arrays.toString(sortArr) + "\n");
+			}
+		}
+		else {
+			for (int i = 0; i < sortArr.length - 1; i++) {
+//				System.out.println("Current array is " + Arrays.toString(sortArr));
+//				System.out.println("In main for");
+				int minVal = sortArr[i];
+				int pos = i;
+				for (int g = i + 1; g < sortArr.length; g++) {
+//					System.out.println("In second for");
+					if (minVal <= sortArr[g]) {
+						minVal = sortArr[g];
+						pos = g;
+					}
+				}
+//				System.out.println("Moved value " + sortArr[pos] + " from position "+ pos + " to pos "+ i); 
+				sortArr[pos] = sortArr[i];
+				sortArr[i] = minVal;
+//				System.out.println("Changed array is " + Arrays.toString(sortArr) + "\n");
+			}
+		}
+	}
+	
+	public void insertionSort(int[] sortArr, boolean ascending) {
+		if (ascending) {
+			for (int i = 1; i < sortArr.length; i++) {
+				//			System.out.println("Enter main loop");
+				for (int g = i; g > 0; g = g - 1) {
+					//				System.out.println("Enter second loop");
+					if (sortArr[g] < sortArr[g - 1]) {
+						//					System.out.println("Enter if");
+						int switched = sortArr[g - 1];
+						sortArr[g - 1] = sortArr[g];
+						sortArr[g] = switched;
+					}
+				}
+			}
+		}
+		else {
+			for (int i = 1; i < sortArr.length; i++) {
+				//			System.out.println("Enter main loop");
+				for (int g = i; g > 0; g = g - 1) {
+					//				System.out.println("Enter second loop");
+					if (sortArr[g] > sortArr[g - 1]) {
+						//					System.out.println("Enter if");
+						int switched = sortArr[g - 1];
+						sortArr[g - 1] = sortArr[g];
+						sortArr[g] = switched;
+					}
+				}
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		myStuff = new int[10];
+		for (int i = 0; i < myStuff.length; i++) {
+			myStuff[i] = new Random().nextInt(10);
+		}
+		System.out.println("Initial array was " + Arrays.toString(myStuff) + "\n");
+		SortSearch sorter = new SortSearch();
+		sorter.bubbleSort(myStuff, true);
+//		sorter.selectionSort(myStuff, true);
+//		sorter.insertionSort(myStuff, true);
+		System.out.println("My sorted array is " + Arrays.toString(myStuff));
+		
+	}
+	
+}

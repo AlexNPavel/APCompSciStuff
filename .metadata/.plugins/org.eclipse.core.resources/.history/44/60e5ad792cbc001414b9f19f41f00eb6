@@ -1,0 +1,20 @@
+import java.util.Random;
+
+
+public class SortSearch {
+
+	static int[] myStuff;
+	
+	public void bubbleSort(int[] sortArr) {
+		
+	}
+	
+	public static void main(String[] args) {
+		myStuff = new int[10];
+		for (int i = 0; i < myStuff.length; i++) {
+			myStuff[i] = new Random().nextInt(10);
+		}
+		
+	}
+	
+}

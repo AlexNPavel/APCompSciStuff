@@ -1,0 +1,439 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+
+
+public class SortSearch {
+
+	static Integer[] myStuffR;
+	static int[] myStuff;
+	static int[] myStuffCopy;
+	int[] temp;
+	int tempNum;
+	static ArrayList<Integer> myStuffList;
+	static long time;
+	static long time2;
+	int tempShift;
+	boolean reset;
+
+	public SortSearch(int length) {
+		reset = true;
+		temp = new int[length];
+	}
+
+	public void bubbleSort(int[] sortArr, boolean ascending) {
+		if (ascending) {
+			while (reset == true) {
+				reset = false;
+				for (int i = 1; i < sortArr.length; i++) {
+					if (sortArr[i] < sortArr[i - 1]) {
+						//						System.out.println("Current array is " + Arrays.toString(sortArr));
+						//						System.out.println("Switch pos " + i + " {value " + sortArr[i] + "} with pos " + (i - 1) + " {value " + sortArr[i - 1] + "}");
+						int upperVal = sortArr[i - 1];
+						int lowerVal = sortArr[i];
+						sortArr[i] = upperVal;
+						sortArr[i - 1] = lowerVal;
+						reset = true;
+						//						System.out.println("Changed array is " + Arrays.toString(sortArr) + "\n");
+					}
+				}
+			}
+		}
+		else {
+			while (reset == true) {
+				reset = false;
+				for (int i = 1; i < sortArr.length; i++) {
+					if (sortArr[i] > sortArr[i - 1]) {
+						//						System.out.println("Current array is " + Arrays.toString(sortArr));
+						//						System.out.println("Switch pos "+ i + " {value " + sortArr[i]+ "} with pos " + (i-1) + " {value " + sortArr[i - 1]+ "}");
+						int upperVal = sortArr[i - 1];
+						int lowerVal = sortArr[i];
+						sortArr[i] = upperVal;
+						sortArr[i - 1] = lowerVal;
+						reset = true;
+						//						System.out.println("Changed array is " + Arrays.toString(sortArr) + "\n");
+					}
+				}
+			}
+		}
+	}
+
+	public void selectionSort(int[] sortArr, boolean ascending) {
+		if (ascending) {
+			for (int i = 0; i < sortArr.length - 1; i++) {
+				//				System.out.println("Current array is " + Arrays.toString(sortArr));
+				int minVal = sortArr[i];
+				int pos = i;
+				for (int g = i + 1; g < sortArr.length; g++) {
+					if (minVal >= sortArr[g]) {
+						minVal = sortArr[g];
+						pos = g;
+					}
+				}
+				//				System.out.println("Moved position " + pos + " {value " + sortArr[pos] +"} to pos " + i);
+				sortArr[pos] = sortArr[i];
+				sortArr[i] = minVal;
+				//				System.out.println("Changed array is " + Arrays.toString(sortArr) + "\n");
+			}
+		}
+		else {
+			for (int i = 0; i < sortArr.length - 1; i++) {
+				//				System.out.println("Current array is " + Arrays.toString(sortArr));
+				int minVal = sortArr[i];
+				int pos = i;
+				for (int g = i + 1; g < sortArr.length; g++) {
+					if (minVal <= sortArr[g]) {
+						minVal = sortArr[g];
+						pos = g;
+					}
+				}
+				//				System.out.println("Moved position " + pos + " {value " + sortArr[pos] +"} to pos " + i);
+				sortArr[pos] = sortArr[i];
+				sortArr[i] = minVal;
+				//				System.out.println("Changed array is " + Arrays.toString(sortArr) + "\n");
+			}
+		}
+	}
+
+	public void insertionSort(int[] sortArr, boolean ascending) {
+		if (ascending) {
+			for (int i = 1; i < sortArr.length; i++) {
+				for (int g = i; g > 0; g = g - 1) {
+					if (sortArr[g] < sortArr[g - 1]) {
+						int switched = sortArr[g - 1];
+						//						System.out.println("Current array is " + Arrays.toString(sortArr));
+						//						System.out.println("Switched pos " + (g-1) +" {value = " + sortArr[g - 1] + "} with pos " + (g) +" {value = " + sortArr[g] +"}");
+						sortArr[g - 1] = sortArr[g];
+						sortArr[g] = switched;
+						//						System.out.println("Changed array is " + Arrays.toString(sortArr) + "\n");
+					}
+				}
+			}
+		}
+		else {
+			for (int i = 1; i < sortArr.length; i++) {
+				for (int g = i; g > 0; g = g - 1) {
+					if (sortArr[g] > sortArr[g - 1]) {
+						int switched = sortArr[g - 1];
+						//						System.out.println("Current array is " + Arrays.toString(sortArr));
+						//						System.out.println("Switched pos " + (g-1) +" {value = " + sortArr[g - 1] + "} with pos " + (g) +" {value = " + sortArr[g] +"}");
+						sortArr[g - 1] = sortArr[g];
+						sortArr[g] = switched;
+						//						System.out.println("Changed array is " + Arrays.toString(sortArr) + "\n");
+					}
+				}
+			}
+		}
+	}
+
+	public void unknown(int w[],int i) {
+		//Prints the array in reverse.
+		if (i >= w.length-1) {
+			//			System.out.print(w[i]+", ");
+		}
+		else
+		{
+			unknown(w,i+1);
+			//			System.out.print(w[i]+", ");
+		}
+	}
+
+	public void merge(int[] sortArr) {
+		int[] first;
+		int[] second;
+		if (sortArr.length % 2 == 0) {
+			first = new int[sortArr.length/2];
+			second = new int[sortArr.length/2];
+		}
+		else {
+			first = new int[(sortArr.length/2) + 1];
+			second = new int[sortArr.length/2];
+		}
+		first = Arrays.copyOfRange(sortArr, 0, first.length);
+		second = Arrays.copyOfRange(sortArr, first.length, second.length + first.length);
+		selectionSort(first, true);
+		selectionSort(second, true);
+		System.arraycopy(first, 0, sortArr, 0, first.length);
+		System.arraycopy(second, 0, sortArr, first.length, second.length);
+		combine(sortArr, 0, sortArr.length - 1);
+	}
+
+	public void mergeR(int[] sortArr, int one, int two) {
+		int first = one;
+		int last = two;
+		if (last - first > 1) {
+			mergeR(sortArr, first, first + (last - first)/2);
+			//			System.out.println("Finished First with first "+first+" and last "+last+" and split "+(first + (last - first)/2));
+			mergeR(sortArr, (first + (last - first)/2) + 1, last);
+			combine(sortArr, first, last);
+			//			System.out.println("What sortArr looks like "+Arrays.toString(sortArr));
+		}
+		else {
+			if (sortArr[last] < sortArr[first]) {
+				tempShift = sortArr[last];
+				sortArr[last] = sortArr[first];
+				sortArr[first] = tempShift;
+			}
+		}
+	}
+
+	public void combine(int[] sortArr, int first, int last) {
+		//		System.out.println("Combine with first "+first+" and last "+last+" and array "+Arrays.toString(sortList));
+		int firstStart = first;
+		int secondStart = 1 + first + (last - first)/2;
+		int origSec = secondStart;
+		//		System.out.println("Secondstart is "+secondStart);
+		int i = first;
+		while (firstStart < origSec) {
+			//			System.out.println("Compared pos "+firstStart+" val "+sortList[firstStart]+" and pos "+secondStart+" val "+sortList[secondStart]);
+			if (sortArr[firstStart] < sortArr[secondStart]) {
+				//				System.out.println("first wins");
+				temp[i] = sortArr[firstStart];
+				firstStart++;
+				i++;
+			}
+			else if (sortArr[firstStart] > sortArr[secondStart]) {
+				//				System.out.println("second wins");
+				temp[i] = sortArr[secondStart];
+				secondStart++;
+				i++;
+			}
+			else {
+				//				System.out.println("tie");
+				temp[i] = sortArr[secondStart];
+				secondStart++;
+				i++;
+				temp[i] = sortArr[firstStart];
+				firstStart++;
+				i++;
+			}
+			if (secondStart > last) {
+				break;
+			}
+			//			System.out.println("Current temp array "+Arrays.toString(temp));
+		}
+
+		while (firstStart < origSec) {
+			//			System.out.println("Finishing first");
+			temp[i] = sortArr[firstStart];
+			firstStart++;
+			i++;
+			//			System.out.println("Current temp array "+Arrays.toString(temp));
+		}
+
+		while (secondStart < last + 1) {
+			//			System.out.println("Finishing second");
+			temp[i] = sortArr[secondStart];
+			secondStart++;
+			i++;
+			//			System.out.println("Current temp array "+Arrays.toString(temp));
+		}
+
+		System.arraycopy(temp, first, sortArr, first, (last-first) + 1);
+	}
+
+	public int splitPoint(int[] sortArr, int firstIndex, int lastIndex) {
+		int first = firstIndex + 1;
+		while (true) {
+			if (first >= lastIndex) {
+				//				System.out.println("break");
+				//				System.out.println("My new array is: " + Arrays.toString(sortArr));
+				break;
+			}
+			if (sortArr[first] < sortArr[firstIndex]) {
+				first++;
+				//				System.out.println("first++");
+				//				System.out.println("My new array is: " + Arrays.toString(sortArr));
+				continue;
+			}
+			else if (sortArr[first] > sortArr[firstIndex]) {
+				while (true) {
+					if (sortArr[first] < sortArr[lastIndex]) {
+						lastIndex--;
+						//						System.out.println("last--");
+						//						System.out.println("My new array is: " + Arrays.toString(sortArr));
+					}
+					else if (sortArr[first] > sortArr[lastIndex]) {
+						tempNum = sortArr[lastIndex];
+						sortArr[lastIndex] = sortArr[first];
+						sortArr[first] = tempNum;
+						lastIndex--;
+						//						System.out.println("innerSwitch");
+						//						System.out.println("My new array is: " + Arrays.toString(sortArr));
+						break;
+					}
+					else {
+						lastIndex--;
+						//						System.out.println("secondLast--");
+						//						System.out.println("My new array is: " + Arrays.toString(sortArr));
+						break;
+					}
+					if (first >= lastIndex) {
+						//						System.out.println("innerBreak");
+						//						System.out.println("My new array is: " + Arrays.toString(sortArr));
+						break;
+					}
+				}
+			}
+			else {
+				first++;
+				//				System.out.println("equal");
+				//				System.out.println("My new array is: " + Arrays.toString(sortArr));
+				continue;
+			}
+		}
+		//		System.out.println("Before last switches: "+Arrays.toString(sortArr));
+		while (sortArr[lastIndex] < sortArr[firstIndex] && lastIndex <= sortArr.length - 1) {
+			//						System.out.println("Comparing indices: first = "+firstIndex+" and last="+last);
+			lastIndex++;
+			//			System.out.println("Checking sames");
+			if (lastIndex >= sortArr.length) {
+				break;
+			}
+		}
+		//		System.out.println("first = "+firstIndex+" and last="+last);
+		tempNum = sortArr[lastIndex-1];
+		sortArr[lastIndex-1] = sortArr[firstIndex];
+		sortArr[firstIndex] = tempNum;
+		return lastIndex-1;
+	}
+
+	public void quickSort(int[] sortArr, int first, int last) {
+		int midPoint;
+		if (last - first > 1) {
+			midPoint = splitPoint(sortArr, first, last);
+			quickSort(sortArr, first, midPoint);
+			quickSort(sortArr, midPoint + 1, last);
+		}
+	}
+
+	public static void main(String[] args) {
+		int arraySize = 200000;
+		int maxInt = 25;
+		myStuff = new int[arraySize];
+		for (int i = 0; i < myStuff.length; i++) {
+			myStuff[i] = new Random().nextInt(maxInt);
+		}
+		//				System.out.println("Initial array was " + Arrays.toString(myStuff) + "\n");
+
+		SortSearch sorter = new SortSearch(myStuff.length);
+
+		//		myStuffCopy = myStuff.clone();
+		//		time = System.currentTimeMillis();
+		//		sorter.bubbleSort(myStuffCopy, true);
+		//		time2 = System.currentTimeMillis();
+		//		System.out.println("Bubble " + (time2 - time));
+		//		
+		//		myStuffCopy = myStuff.clone();
+		//		time = System.currentTimeMillis();
+		//		sorter.selectionSort(myStuffCopy, true);
+		//		time2 = System.currentTimeMillis();
+		//		System.out.println("Select " + (time2 - time));
+		//		
+		//		myStuffCopy = myStuff.clone();
+		//		time = System.currentTimeMillis();
+		//		sorter.insertionSort(myStuffCopy, true);
+		//		time2 = System.currentTimeMillis();
+		//		System.out.println("Insert " + (time2 - time));
+		//		
+		//		myStuffCopy = myStuff.clone();
+		//		time = System.currentTimeMillis();
+		//		sorter.merge(myStuffCopy);
+		//		time2 = System.currentTimeMillis();
+		//		System.out.println("NonRecursiveMerge " + (time2 - time));
+
+		//		System.out.println("My sorted array is " + Arrays.toString(myStuff));
+		//		int[] unknownArr = new int[10];
+		//		for(int i = 0; i < unknownArr.length; i++) {
+		//			unknownArr[i] = new Random().nextInt(100);
+		//		}
+		//		System.out.println("Old Unknown: "+Arrays.toString(unknownArr));
+		//		sorter.unknown(unknownArr, 0);
+		//System.out.println("New Unknown: "+Arrays.toString(unknownArr));
+
+		//		System.out.println("My original array is " + Arrays.toString(myStuffCopy));
+
+
+		for (int i = 0; i < myStuff.length; i++) {
+			myStuff[i] = new Random().nextInt(maxInt);
+		}
+		time = System.currentTimeMillis();
+		sorter.mergeR(myStuff, 0, myStuff.length - 1);
+		time2 = System.currentTimeMillis();
+		System.out.println("RecursiveMerge " + (time2 - time));
+		//				long timeRecurs = (time2 - time);
+		//
+		//		myStuff = new int[arraySize];
+		//		for (int i = 0; i < myStuff.length; i++) {
+		//			myStuff[i] = new Random().nextInt(maxInt);
+		//		}
+		//
+		//		time = System.currentTimeMillis();
+		//		Arrays.sort(myStuff);
+		//		time2 = System.currentTimeMillis();
+		//		System.out.println("JavaSortClass "+(time2 - time));
+		//		long timeJava = (time2 - time);
+		//
+		//
+		//		System.out.println("My recursive sort time is approximately "+(((double)timeJava)/((double)timeRecurs))+" times the time of the built in sort");
+		//		System.out.println("Flipped factor: "+(((double)timeRecurs)/((double)timeJava)));
+
+		myStuff = new int[arraySize];
+
+		//		for (int i = 0; i < myStuff.length; i++) {
+		//			myStuff[i] = 8;
+		//		}
+
+		for (int i = 0; i < myStuff.length; i++) {
+			myStuff[i] = new Random().nextInt(maxInt);
+		}
+
+		//		myStuff[0] = 7;
+		//		myStuff[1] = 8;
+		//		myStuff[2] = 16;
+		//		myStuff[3] = 2;
+		//		myStuff[4] = 8;
+		//		myStuff[5] = 8;
+		//		myStuff[6] = 8;
+		//		myStuff[7] = 14;
+		//		myStuff[8] = 22;
+		//		myStuff[9] = 24;
+
+		//		myStuff[0] = 20;
+		//		myStuff[1] = 20;
+		//		myStuff[2] = 15;
+		//		myStuff[3] = 7;
+		//		myStuff[4] = 21;
+		//		myStuff[5] = 10;
+		//		myStuff[6] = 16;
+		//		myStuff[7] = 14;
+		//		myStuff[8] = 6;
+		//		myStuff[9] = 24;
+
+		//		myStuff[0] = 6;
+		//		myStuff[1] = 3;
+		//		myStuff[2] = 4;
+
+		//		System.out.println("Initial array was " + Arrays.toString(myStuff) + "\n");
+
+		//		time = System.currentTimeMillis();
+		//		sorter.splitPoint(myStuff, 0, myStuff.length - 1);
+		//		time2 = System.currentTimeMillis();
+		//		System.out.println("SplitPoint "+(time2 - time));
+
+		//		System.out.println("My sorted array is " + Arrays.toString(myStuff));
+
+		for (int i = 0; i < myStuff.length; i++) {
+			myStuff[i] = new Random().nextInt(maxInt);
+		}
+		//		System.out.println("Initial array was " + Arrays.toString(myStuff) + "\n");
+
+		time = System.currentTimeMillis();
+		sorter.quickSort(myStuff, 0, myStuff.length - 1);
+		time2 = System.currentTimeMillis();
+		System.out.println("QuickSort "+(time2 - time));
+		//		System.out.println("My sorted array is " + Arrays.toString(myStuff));
+
+	}
+
+}

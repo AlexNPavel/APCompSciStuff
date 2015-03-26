@@ -1,0 +1,24 @@
+import java.util.Arrays;
+import java.util.Random;
+
+
+public class SortSearch {
+
+	static int[] myStuff;
+	
+	public void bubbleSort(int[] sortArr) {
+		
+	}
+	
+	public static void main(String[] args) {
+		myStuff = new int[10];
+		for (int i = 0; i < myStuff.length; i++) {
+			myStuff[i] = new Random().nextInt(10);
+		}
+		System.out.println("Initial array was " + Arrays.toString(myStuff));
+		SortSearch sorter = new SortSearch();
+		sorter.bubbleSort(myStuff);
+		System.out.println("My sorted array is " + Arrays.toString(myStuff));
+	}
+	
+}

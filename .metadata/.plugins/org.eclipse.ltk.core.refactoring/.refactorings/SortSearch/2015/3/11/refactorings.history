@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;SortSearch.java&apos; to &apos;SortSearchClean/src&apos;&#x0A;- Original project: &apos;SortSearch&apos;&#x0A;- Destination element: &apos;SortSearchClean/src&apos;&#x0A;- Original element: &apos;SortSearch.java&apos;" description="Copy compilation unit" destination="=SortSearchClean/src" element1="/src&lt;{SortSearch.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1426254739344" units="1" version="1.0"/>
+</session>

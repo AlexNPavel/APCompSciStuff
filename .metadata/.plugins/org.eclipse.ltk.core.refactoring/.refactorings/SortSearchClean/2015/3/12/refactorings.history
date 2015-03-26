@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;SortSearch.combineR(...)&apos; to &apos;combine&apos;&#x0A;- Original project: &apos;SortSearchClean&apos;&#x0A;- Original element: &apos;SortSearch.combineR(...)&apos;&#x0A;- Renamed element: &apos;SortSearch.combine(...)&apos;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;combineR&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;{SortSearch.java[SortSearch~combineR~\[I~I~I" name="combine" references="true" stamp="1426509740055" version="1.0"/>
+</session>
