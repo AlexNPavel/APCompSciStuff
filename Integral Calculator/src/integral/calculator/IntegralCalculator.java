@@ -29,31 +29,7 @@ public class IntegralCalculator {
         double hl = 2;
         int cores2 = Runtime.getRuntime().availableProcessors() * 2;
         ExecutorService threadRunner = Executors.newFixedThreadPool(cores2);
-        long time = System.nanoTime();
-//        t1 = new Threadable(ll, hl, 0);
-//        t2 = new Threadable(ll, hl, 1);
-//        t3 = new Threadable(ll, hl, 2);
-//        t4 = new Threadable(ll, hl, 3);
-//        t5 = new Threadable(ll, hl, 4);
-//        t6 = new Threadable(ll, hl, 5);
-//        t7 = new Threadable(ll, hl, 6);
-//        t8 = new Threadable(ll, hl, 7);
-//        t1.start();
-//        t2.start();
-//        t3.start();
-//        t4.start();
-//        t5.start();
-//        t6.start();
-//        t7.start();
-//        t8.start();
-//        t1.join();
-//        t2.join();
-//        t3.join();
-//        t4.join();
-//        t5.join();
-//        t6.join();
-//        t7.join();
-//        t8.join();
+        long time = System.currentTimeMillis();
         for (int i = 0; i < 8; i++) {
             threadRunner.execute(new Threadable(ll, hl, i));
         }
@@ -64,8 +40,8 @@ public class IntegralCalculator {
         catch (InterruptedException e) {
             System.out.println("ERROR");
         }
-        System.out.println("Time: " + ((System.nanoTime() - time)/1000000) + " milliseconds\n");
-        time = System.nanoTime();
+        System.out.println("Time: " + (System.currentTimeMillis() - time) + " milliseconds\n");
+        time = System.currentTimeMillis();
         for (double i = ll; i < hl; i += 0.0000001) {
             pArea += 0.0000001 * Math.pow(i, 3);
         }
@@ -105,7 +81,7 @@ public class IntegralCalculator {
                 pArea += 0.0000001 * Math.pow(i, 10);
             }
         System.out.println("run8 "+df.format(pArea));
-        System.out.println("Time: " + ((System.nanoTime() - time)/1000000) + " milliseconds");
+        System.out.println("Time: " + (System.currentTimeMillis() - time) + " milliseconds");
     }
     
 }
