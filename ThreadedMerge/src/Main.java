@@ -11,6 +11,9 @@ public class Main {
 	static int[] myStuff;
 	static int[] temp;
 	static long time;
+	static long time2;
+	static long singleThreadTime;
+	static long multiThreadTime;
 
 	public static void main(String[] args) {
 		int arraySize = 20000000;
@@ -49,8 +52,9 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-
-		System.out.println("First Time: " + (System.currentTimeMillis() - time));
+		time2 = System.currentTimeMillis();
+		System.out.println("First Time: " + (time2 - time));
+		multiThreadTime = time2 - time;
 //		System.out.println("New array "+Arrays.toString(myStuff));
 		for (int i = 0; i < myStuff.length; i++) {
 			myStuff[i] = new Random().nextInt(maxInt);
@@ -65,8 +69,11 @@ public class Main {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Second Time: " + (System.currentTimeMillis() - time));
+		time2 = System.currentTimeMillis();
+		System.out.println("Second Time: " + (time2 - time));
+		singleThreadTime = time2 - time;
 //		System.out.println("New array "+Arrays.toString(myStuff));
+		System.out.println("MultiThreaded was " + ( (double) singleThreadTime / (double) multiThreadTime) + "x faster than SingleThreaded");
 	}
 
 }
