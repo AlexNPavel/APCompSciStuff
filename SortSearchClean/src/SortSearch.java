@@ -305,9 +305,63 @@ public class SortSearch {
 		}
 	}
 
+	public boolean linearSearch(int[] sortArr, int key) {
+		boolean exists = false;
+		for (int i = 0; i < sortArr.length; i++) {
+			if (sortArr[i] == key) {
+				exists = true;
+				break;
+			}
+			else {
+				continue;
+			}
+		}
+		return exists;
+	}
+
+	public boolean binarySearch(int[] sortArr, int key) {
+		boolean exists = false;
+		mergeR(sortArr, 0, sortArr.length - 1);
+		System.out.println("Sorted array is: "+ Arrays.toString(sortArr));
+		int begin = 0 ;
+		int end  = sortArr.length - 1;
+		int mid = sortArr.length / 2;
+		while(true) {
+			System.out.println("Checking " + sortArr[mid] + " against " + key);
+			System.out.println("Begin is " + begin + " end is "+ end);
+			if (sortArr[mid] < key) {
+				System.out.println("In less than");
+				begin = mid + 1;
+				mid = ((end - begin) / 2) + begin;
+			}
+			else if (sortArr[mid] > key) {
+				System.out.println("In greater than");
+				end = mid - 1;
+				mid = ((end - begin) / 2) + begin;
+			}
+			else {
+				System.out.println("In exists");
+				exists = true;
+				break;
+			}
+
+			if(!((end - begin) > 0)) {
+				System.out.println("Breaking with begin "+ begin +" and end "+ end);
+				break;
+			}
+		}
+		System.out.println("Sorted array is: "+ Arrays.toString(sortArr));
+		return exists;
+	}
+
+	public void binarySearch(int[] sortArr, int key, int first, int last) {
+		mergeR(sortArr, 0, sortArr.length - 1);
+
+	}
+
 	public static void main(String[] args) {
-		int arraySize = 2000000;
-		int maxInt = Integer.MAX_VALUE;
+		int arraySize = 20;
+		int maxInt = 50;
 		myStuff = new int[arraySize];
 		for (int i = 0; i < myStuff.length; i++) {
 			myStuff[i] = new Random().nextInt(maxInt);
@@ -352,13 +406,13 @@ public class SortSearch {
 		//		System.out.println("My original array is " + Arrays.toString(myStuffCopy));
 
 
-		for (int i = 0; i < myStuff.length; i++) {
-			myStuff[i] = new Random().nextInt(maxInt);
-		}
-		time = System.currentTimeMillis();
-		sorter.mergeR(myStuff, 0, myStuff.length - 1);
-		time2 = System.currentTimeMillis();
-		System.out.println("RecursiveMerge " + (time2 - time));
+		//		for (int i = 0; i < myStuff.length; i++) {
+		//			myStuff[i] = new Random().nextInt(maxInt);
+		//		}
+		//		time = System.currentTimeMillis();
+		//		sorter.mergeR(myStuff, 0, myStuff.length - 1);
+		//		time2 = System.currentTimeMillis();
+		//		System.out.println("RecursiveMerge " + (time2 - time));
 		//				long timeRecurs = (time2 - time);
 		//
 		//		myStuff = new int[arraySize];
@@ -382,9 +436,9 @@ public class SortSearch {
 		//			myStuff[i] = 8;
 		//		}
 
-		for (int i = 0; i < myStuff.length; i++) {
-			myStuff[i] = new Random().nextInt(maxInt);
-		}
+		//		for (int i = 0; i < myStuff.length; i++) {
+		//			myStuff[i] = new Random().nextInt(maxInt);
+		//		}
 
 		//		myStuff[0] = 7;
 		//		myStuff[1] = 8;
@@ -421,17 +475,28 @@ public class SortSearch {
 
 		//		System.out.println("My sorted array is " + Arrays.toString(myStuff));
 
+		//		for (int i = 0; i < myStuff.length; i++) {
+		//			myStuff[i] = new Random().nextInt(maxInt);
+		//		}
+		//				System.out.println("Initial array was " + Arrays.toString(myStuff) + "\n");
+
+		//		time = System.currentTimeMillis();
+		//		sorter.quickSort(myStuff, 0, myStuff.length - 1);
+		//		time2 = System.currentTimeMillis();
+		//		System.out.println("QuickSort "+(time2 - time));
+		//				System.out.println("My sorted array is " + Arrays.toString(myStuff));
+
 		for (int i = 0; i < myStuff.length; i++) {
 			myStuff[i] = new Random().nextInt(maxInt);
 		}
-//				System.out.println("Initial array was " + Arrays.toString(myStuff) + "\n");
-
-		time = System.currentTimeMillis();
-		sorter.quickSort(myStuff, 0, myStuff.length - 1);
-		time2 = System.currentTimeMillis();
-		System.out.println("QuickSort "+(time2 - time));
-//				System.out.println("My sorted array is " + Arrays.toString(myStuff));
-
+		System.out.println("Initial array was " + Arrays.toString(myStuff) + "\n");
+		int randNum = new Random().nextInt(maxInt);
+		if (sorter.binarySearch(myStuff, randNum)) {
+			System.out.println("Value " + randNum + " exists in array");
+		}
+		else{
+			System.out.println("Value " + randNum + " does not exist in array");
+		}
 	}
 
 }
