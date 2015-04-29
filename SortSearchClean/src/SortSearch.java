@@ -15,6 +15,7 @@ public class SortSearch {
 	static long time2;
 	int tempShift;
 	boolean reset;
+	boolean exists;
 
 	public SortSearch(int length) {
 		reset = true;
@@ -320,7 +321,7 @@ public class SortSearch {
 	}
 
 	public boolean binarySearch(int[] sortArr, int key) {
-		boolean exists = false;
+		exists = false;
 		mergeR(sortArr, 0, sortArr.length - 1);
 		System.out.println("Sorted array is: "+ Arrays.toString(sortArr));
 		int begin = 0 ;
@@ -346,6 +347,9 @@ public class SortSearch {
 			}
 
 			if(!((end - begin) > 0)) {
+				if (sortArr[begin] == key) {
+					exists = true;
+				}
 				System.out.println("Breaking with begin "+ begin +" and end "+ end);
 				break;
 			}
@@ -354,9 +358,39 @@ public class SortSearch {
 		return exists;
 	}
 
-	public void binarySearch(int[] sortArr, int key, int first, int last) {
-		mergeR(sortArr, 0, sortArr.length - 1);
-
+	public boolean binarySearch(int[] sortArr, int key, int first, int last) {
+		exists = false;
+		System.out.println("Sorted array is: "+ Arrays.toString(sortArr));
+		int begin = first ;
+		int end  = last;
+		int mid = ((end - begin) / 2) + begin;
+		if(!((end - begin) > 0)) {
+			if (sortArr[begin] == key) {
+				exists = true;
+			}
+			System.out.println("Breaking with begin "+ begin +" and end "+ end);
+			return exists;
+		}
+		else {
+			System.out.println("Checking " + sortArr[mid] + " against " + key);
+			System.out.println("Begin is " + begin + " end is "+ end);
+			if (sortArr[mid] < key) {
+				System.out.println("In less than");
+				begin = mid + 1;
+				binarySearch(sortArr, key, begin, end);
+			}
+			else if (sortArr[mid] > key) {
+				System.out.println("In greater than");
+				end = mid - 1;
+				binarySearch(sortArr, key, begin, end);
+			}
+			else {
+				System.out.println("In exists");
+				exists = true;
+				return true;
+			}
+		}
+		return exists;
 	}
 
 	public static void main(String[] args) {
@@ -486,17 +520,33 @@ public class SortSearch {
 		//		System.out.println("QuickSort "+(time2 - time));
 		//				System.out.println("My sorted array is " + Arrays.toString(myStuff));
 
+		int randNum;
+		
+//		for (int i = 0; i < myStuff.length; i++) {
+//			myStuff[i] = new Random().nextInt(maxInt);
+//		}
+//		System.out.println("Initial array was " + Arrays.toString(myStuff) + "\n");
+//		randNum = new Random().nextInt(maxInt);
+//		if (sorter.binarySearch(myStuff, randNum)) {
+//			System.out.println("Value " + randNum + " exists in array");
+//		}
+//		else{
+//			System.out.println("Value " + randNum + " does not exist in array");
+//		}
+		
 		for (int i = 0; i < myStuff.length; i++) {
 			myStuff[i] = new Random().nextInt(maxInt);
 		}
 		System.out.println("Initial array was " + Arrays.toString(myStuff) + "\n");
-		int randNum = new Random().nextInt(maxInt);
-		if (sorter.binarySearch(myStuff, randNum)) {
+		sorter.mergeR(myStuff, 0, myStuff.length - 1);
+		randNum = new Random().nextInt(maxInt);
+		if (sorter.binarySearch(myStuff, randNum, 0, myStuff.length - 1)) {
 			System.out.println("Value " + randNum + " exists in array");
 		}
 		else{
 			System.out.println("Value " + randNum + " does not exist in array");
 		}
+		
 	}
 
 }
